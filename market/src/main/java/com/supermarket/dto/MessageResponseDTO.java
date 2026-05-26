@@ -3,10 +3,7 @@ package com.supermarket.dto;
 import lombok.Data;
 
 @Data
-public class HttpGlobalResponse <T>{
-
+public class MessageResponseDTO {
 
     private String message;
-
-    private T data;
 }
