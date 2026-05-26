@@ -1,5 +1,5 @@
 package com.supermarket.repository;
 
-public class ProductoRepository {
+public class ProductRepository {
     
 }

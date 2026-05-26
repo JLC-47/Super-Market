@@ -1,5 +1,5 @@
 package com.supermarket.entity;
 
-public class Producto {
+public class Product {
     
 }
