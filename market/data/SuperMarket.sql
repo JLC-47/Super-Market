@@ -2,14 +2,14 @@ create database micro_market;
 use micro_market;
 
 create table categories (
-    id_category int primary key auto_increment,
+    id int primary key auto_increment,
     name varchar(100) not null,
     description varchar(255)
 );
 
 
 create table products (
-    id_producto int primary key auto_increment,
+    id int primary key auto_increment,
     name varchar(150) not null,
     description varchar(255),
     barcode varchar(100) not null unique,
@@ -17,11 +17,11 @@ create table products (
     stock int not null default 0,
     status boolean default true,
     id_category int not null,
-    foreign key (id_category) references categories(id_category)
+    foreign key (id_category) references categories(id)
 );
 
 create table suppliers (
-    id_supplier int primary key auto_increment,
+    id int primary key auto_increment,
     name varchar(150) not null,
     tax_id varchar(50) not null unique,
     phone varchar(30),
@@ -34,14 +34,14 @@ create table product_supplier (
     id_producto int not null,
     id_supplier int not null,
     primary key (id_producto, id_supplier),
-    foreign key (id_producto) references products(id_producto),
-    foreign key (id_supplier) references suppliers(id_supplier)
+    foreign key (id_producto) references products(id),
+    foreign key (id_supplier) references suppliers(id)
 );
 
 
 
 create table employees (
-    id_employee int primary key auto_increment,
+    id int primary key auto_increment,
     national_id varchar(20) not null unique,
     name varchar(150) not null,
     role enum('administrador', 'cajero', 'auxiliar') not null,
@@ -52,24 +52,24 @@ create table employees (
 
 
 create table sales (
-    id_sale int primary key auto_increment,
+    id int primary key auto_increment,
     sale_date datetime default current_timestamp,
     subtotal decimal(10,2) not null,
     vat decimal(10,2) not null,
     total decimal(10,2) not null,
     id_employee int not null,
-    foreign key (id_employee) references employees(id_employee)
+    foreign key (id_employee) references employees(id)
 );
 
 
 create table sale_details (
-    id_detail int primary key auto_increment,
+    id int primary key auto_increment,
     id_sale int not null,
     id_producto int not null,
     quantity int not null,
     unit_price decimal(10,2) not null,
     subtotal decimal(10,2) not null,
-    foreign key (id_sale) references sales(id_sale),
-    foreign key (id_producto) references products(id_producto)
+    foreign key (id_sale) references sales(id),
+    foreign key (id_producto) references products(id)
 );
 
