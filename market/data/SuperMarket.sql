@@ -31,10 +31,10 @@ create table suppliers (
 
 
 create table product_supplier (
-    id_producto int not null,
+    id_product int not null,
     id_supplier int not null,
-    primary key (id_producto, id_supplier),
-    foreign key (id_producto) references products(id),
+    primary key (id_product, id_supplier),
+    foreign key (id_product) references products(id),
     foreign key (id_supplier) references suppliers(id)
 );
 
@@ -65,11 +65,11 @@ create table sales (
 create table sale_details (
     id int primary key auto_increment,
     id_sale int not null,
-    id_producto int not null,
+    id_product int not null,
     quantity int not null,
     unit_price decimal(10,2) not null,
     subtotal decimal(10,2) not null,
     foreign key (id_sale) references sales(id),
-    foreign key (id_producto) references products(id)
+    foreign key (id_product) references products(id)
 );
 
