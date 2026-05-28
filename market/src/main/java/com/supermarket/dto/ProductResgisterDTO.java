@@ -16,7 +16,7 @@ public class ProductResgisterDTO {
     private Double price;
 
     private Long stock;
-
+ 
     private boolean status;
 
 
@@ -24,4 +24,4 @@ public class ProductResgisterDTO {
 
     private Set<Long> supplierIds;
 
-}
+} 

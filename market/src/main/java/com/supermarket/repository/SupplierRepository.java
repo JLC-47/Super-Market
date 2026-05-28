@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Suppliers, Long> {
-    
-    boolean existsByTaxId(String taxId);
+
+}
+     boolean existsByTaxId(String taxId);
 }
