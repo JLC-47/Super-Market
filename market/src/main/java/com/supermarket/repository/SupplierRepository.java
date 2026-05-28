@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface SupplierRepository extends JpaRepository<Suppliers, Long> {
 
 }
-     boolean existsByTaxId(String taxId);
-}
+
