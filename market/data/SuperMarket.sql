@@ -73,3 +73,17 @@ create table sale_details (
     foreign key (id_product) references products(id)
 );
 
+INSERT INTO categories (name, description, status) VALUES ('Lácteos y Huevos', 'Productos derivados de la leche y huevos', true);
+INSERT INTO categories (name, description, status) VALUES ('Carnes', 'Carnes rojas, blancas y embutidos', true);
+INSERT INTO categories (name, description, status) VALUES ('Aseo Personal', 'Productos para el cuidado personal y limpieza', true);
+
+INSERT INTO suppliers (name, nit, address, phone, status) VALUES ('Distribuidora Central', '900123456-1', 'Calle 10 # 14-25', '3101234567', true);
+INSERT INTO suppliers (name, nit, address, phone, status) VALUES ('Suministros del Valle', '800987654-2', 'Carrera 15 # 20-10', '3209876543', true);
+
+INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Leche Entera 1L', 3500.00, 50, 1, 1, true);
+INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Queso Campesino 250g', 5000.00, 30, 1, 1, true);
+INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Carne de Res 500g', 12000.00, 20, 2, 2, true);
+INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Jabón de Baño 3 Unidades', 6000.00, 40, 3, 1, true);
+
+INSERT INTO employees (name, document, role, status) VALUES ('Carlos Ramirez', '1094123456', 'CAJERO', true);
+INSERT INTO employees (name, document, role, status) VALUES ('Laura Gomez', '1094654321', 'ADMINISTRADOR', true);
