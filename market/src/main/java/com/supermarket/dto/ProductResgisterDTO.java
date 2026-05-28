@@ -30,7 +30,7 @@ public class ProductResgisterDTO {
     @NotNull(message = "El stock inicial es obligatorio.")
     @Min(value = 0, message = "El stock inicial no puede ser un número negativo.")
     private Long stock;
-
+ 
     private boolean status;
 
     @NotNull(message = "La categoría del producto es obligatoria.")
