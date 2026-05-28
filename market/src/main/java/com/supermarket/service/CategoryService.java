@@ -31,6 +31,7 @@ public class CategoryService {
     }
 
     public List<CategoryResponseDTO> getAllCategories() {
+
         List<Categories> categories = categoryRepository.findByStatusTrue();
         
         return categories.stream().map(cat -> {
