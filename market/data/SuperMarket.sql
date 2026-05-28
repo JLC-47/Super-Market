@@ -1,6 +1,7 @@
 create database micro_market;
 use micro_market;
 
+
 create table categories (
     id int primary key auto_increment,
     name varchar(100) not null,
@@ -73,17 +74,63 @@ create table sale_details (
     foreign key (id_product) references products(id)
 );
 
-INSERT INTO categories (name, description, status) VALUES ('Lácteos y Huevos', 'Productos derivados de la leche y huevos', true);
-INSERT INTO categories (name, description, status) VALUES ('Carnes', 'Carnes rojas, blancas y embutidos', true);
-INSERT INTO categories (name, description, status) VALUES ('Aseo Personal', 'Productos para el cuidado personal y limpieza', true);
 
-INSERT INTO suppliers (name, nit, address, phone, status) VALUES ('Distribuidora Central', '900123456-1', 'Calle 10 # 14-25', '3101234567', true);
-INSERT INTO suppliers (name, nit, address, phone, status) VALUES ('Suministros del Valle', '800987654-2', 'Carrera 15 # 20-10', '3209876543', true);
 
-INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Leche Entera 1L', 3500.00, 50, 1, 1, true);
-INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Queso Campesino 250g', 5000.00, 30, 1, 1, true);
-INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Carne de Res 500g', 12000.00, 20, 2, 2, true);
-INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Jabón de Baño 3 Unidades', 6000.00, 40, 3, 1, true);
+INSERT INTO categories (name, description) VALUES
+('Electrónica', 'Dispositivos electrónicos, gadgets y tecnología'),
+('Lácteos', 'Productos derivados de la leche y refrigerados'),
+('Abarrotes', 'Productos alimenticios secos y de primera necesidad'),
+('Limpieza', 'Artículos para el aseo del hogar y desinfección'),
+('Bebidas', 'Jugos, refrescos, aguas y licores');
 
-INSERT INTO employees (name, document, role, status) VALUES ('Carlos Ramirez', '1094123456', 'CAJERO', true);
-INSERT INTO employees (name, document, role, status) VALUES ('Laura Gomez', '1094654321', 'ADMINISTRADOR', true);
+
+INSERT INTO products (name, description, barcode, price, stock, status, id_category) VALUES
+('Teclado Mecánico RGB', 'Teclado para computadora con luces y switches azules', '7501234567890', 45.00, 15, true, 1),
+('Leche Entera 1L', 'Leche pasteurizada de vaca', '7501234567891', 1.50, 50, true, 2),
+('Arroz Blanco 1kg', 'Arroz grano largo de alta calidad', '7501234567892', 2.10, 100, true, 3),
+('Detergente Líquido 3L', 'Jabón líquido para ropa blanca y de color', '7501234567893', 8.50, 20, true, 4),
+('Refresco de Cola 2L', 'Bebida carbonatada refrescante', '7501234567894', 1.80, 80, true, 5),
+('Mouse Inalámbrico', 'Mouse óptico ergonómico 2.4Ghz', '7501234567895', 15.00, 30, true, 1);
+
+
+INSERT INTO suppliers (name, tax_id, phone, address, email) VALUES
+('TechDistribuidora S.A.', 'TAX-112233-A', '+57 300 123 4567', 'Calle 45 #12-34, Bogotá', 'ventas@techdist.com'),
+('Lácteos del Campo', 'TAX-445566-B', '+57 311 987 6543', 'Km 5 Vía al Mar, Medellín', 'pedidos@lacteoscampo.com'),
+('Distribuidora Global Alimentos', 'TAX-778899-C', '+57 322 555 1122', 'Av. Central #50-10, Cali', 'contacto@globalalimentos.com'),
+('Químicos y Limpieza Express', 'TAX-001122-D', '+57 315 444 8899', 'Zona Industrial Lote 4, Barranquilla', 'info@limpiezaexpress.com');
+
+
+INSERT INTO product_supplier (id_product, id_supplier) VALUES
+(1, 1), 
+(6, 1), 
+(2, 2), 
+(3, 3), 
+(5, 3), 
+(4, 4); 
+
+
+INSERT INTO employees (national_id, name, role, hire_date, salary) VALUES
+('10012345', 'Carlos Mendoza', 'administrador', '2023-01-15', 1200.00),
+('10054321', 'Ana Gómez', 'cajero', '2024-02-10', 600.00),
+('10098765', 'Luis Martínez', 'cajero', '2024-05-20', 600.00),
+('10045678', 'Sofía Rojas', 'auxiliar', '2023-11-01', 500.00);
+
+
+INSERT INTO sales (sale_date, subtotal, vat, total, id_employee) VALUES
+('2026-05-25 10:30:00', 46.50, 8.84, 55.34, 2), 
+('2026-05-26 15:45:12', 5.10, 0.97, 6.07, 2),  
+('2026-05-27 18:20:00', 15.00, 2.85, 17.85, 3); 
+
+
+INSERT INTO sale_details (id_sale, id_product, quantity, unit_price, subtotal) VALUES
+(1, 1, 1, 45.00, 45.00),
+(1, 2, 1, 1.50, 1.50);
+
+
+INSERT INTO sale_details (id_sale, id_product, quantity, unit_price, subtotal) VALUES
+(2, 3, 1, 2.10, 2.10),
+(2, 5, 2, 1.50, 3.00);
+
+
+INSERT INTO sale_details (id_sale, id_product, quantity, unit_price, subtotal) VALUES
+(3, 6, 1, 15.00, 15.00);
