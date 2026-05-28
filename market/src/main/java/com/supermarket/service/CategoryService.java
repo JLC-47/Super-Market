@@ -2,6 +2,7 @@ package com.supermarket.service;
 
 import com.supermarket.dto.CategoryRequestDTO;
 import com.supermarket.dto.CategoryResponseDTO;
+import com.supermarket.dto.ProductResponseDTO;
 import com.supermarket.entity.Categories;
 import com.supermarket.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-//(Crear)
     public String createCategory(CategoryRequestDTO data) {
         if (categoryRepository.existsByName(data.getName())) {
             throw new RuntimeException("Error: Ya existe una categoría con este nombre.");
@@ -29,7 +29,7 @@ public class CategoryService {
         categoryRepository.save(category);
         return "Categoría creada con éxito";
     }
-//(Leer)
+
     public List<CategoryResponseDTO> getAllCategories() {
         List<Categories> categories = categoryRepository.findByStatusTrue();
         
@@ -41,7 +41,37 @@ public class CategoryService {
             return dto;
         }).collect(Collectors.toList());
     }
-//(Actualizar)
+
+    public CategoryResponseDTO getCategoryById(Long id) {
+        Categories category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Error: Categoría no encontrada."));
+
+        CategoryResponseDTO dto = new CategoryResponseDTO();
+        dto.setId(category.getId());
+        dto.setName(category.getName());
+        dto.setDescription(category.getDescription());
+
+        if (category.getProducts() != null) {
+            List<ProductResponseDTO> activeProducts = category.getProducts().stream()
+                    .filter(product -> product.isStatus())
+                    .map(product -> {
+                        ProductResponseDTO productDto = new ProductResponseDTO();
+                        productDto.setId(product.getId());
+                        productDto.setName(product.getName());
+                        productDto.setDescription(product.getDescription());
+                        productDto.setBarcode(product.getBarcode());
+                        productDto.setPrice(product.getPrice());
+                        productDto.setStock(product.getStock());
+                        productDto.setStatus(product.isStatus());
+                        productDto.setCategoryId(category.getId());
+                        return productDto;
+                    }).collect(Collectors.toList());
+            dto.setProducts(activeProducts);
+        }
+
+        return dto;
+    }
+
     public String updateCategory(Long id, CategoryRequestDTO data) {
         Categories category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Categoría no encontrada."));
@@ -56,7 +86,7 @@ public class CategoryService {
         categoryRepository.save(category);
         return "Categoría actualizada con éxito";
     }
-//(Eliminar - Borrado Lógico)
+
     public String deleteCategory(Long id) {
         Categories category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Categoría no encontrada."));
