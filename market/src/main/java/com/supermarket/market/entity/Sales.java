@@ -31,7 +31,7 @@ public class Sales {
     @Column(name =  "subtotal", nullable = false)
     private Double subtotal;
 
-    @Column(name =  "subtotal", nullable = false)
+    @Column(name =  "vat", nullable = false)
     private Double vat;
 
     @Column(name =  "total", nullable = false)
