@@ -39,4 +39,4 @@ public class ProductResgisterDTO {
     @NotNull(message = "La lista de proveedores no puede ser nula.")
     private Set<Long> supplierIds;
 
-}
+} 

@@ -7,3 +7,4 @@ import com.supermarket.entity.Suppliers;
 public interface SupplierRepository  extends JpaRepository<Suppliers, Long>{
     
 }
+ 
