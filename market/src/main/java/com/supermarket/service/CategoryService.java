@@ -30,7 +30,7 @@ public class CategoryService {
         return "Categoría creada con éxito";
     }
 //(Leer)
-    public List<CategoryResponseDTO> getAllCategories() {
+    public List<CategoryRequestDTO> getAllCategories() {
         List<Categories> categories = categoryRepository.findByStatusTrue();
         
         return categories.stream().map(cat -> {
