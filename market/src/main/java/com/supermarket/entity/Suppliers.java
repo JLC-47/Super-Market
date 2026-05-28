@@ -33,10 +33,10 @@ public class Suppliers {
     @Column(name = "phone", length = 30)
     private String phone;
 
-    @Column(name = "name", length = 255)
+    @Column(name = "address", length = 255)
     private String address;
 
-    @Column(name = "name", length = 150)
+    @Column(name = "email", length = 150)
     private String email;
 
     @ManyToMany(mappedBy = "suppliers", fetch = FetchType.LAZY)
