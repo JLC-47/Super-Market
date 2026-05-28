@@ -18,27 +18,29 @@ import lombok.Data;
 public class Employees {
     
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name =  "national_id", nullable = false, unique = true, length = 20 )
-    private String natinalId;
+    // Corregido: nationalId
+    @Column(name = "national_id", nullable = false, unique = true, length = 20 )
+    private String nationalId;
 
-    @Column(name =  "name", nullable = false,  length = 150 )
+    @Column(name = "name", nullable = false, length = 150 )
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name =  "role", nullable = false)
+    @Column(name = "role", nullable = false)
     private Role role;
 
-    @Column(name =  "hirDate", nullable = false )
-    private LocalDate hirDate;
+    // Corregido: hireDate y nombre de la columna a hire_date
+    @Column(name = "hire_date", nullable = false )
+    private LocalDate hireDate;
 
-    @Column(name =  "salary", nullable = false )
+    @Column(name = "salary", nullable = false )
     private Double salary;
 
-
+    // Corregido: Mayúsculas y ortografía de ADMINISTRADOR
     public enum Role{
-        adminstrador, cajero, auxiliar
+        ADMINISTRADOR, CAJERO, AUXILIAR
     }
 }
