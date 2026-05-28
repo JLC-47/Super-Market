@@ -1,74 +1,89 @@
-CREATE DATABASE micro_market;
-USE micro_market;
+create database micro_market;
+use micro_market;
 
-CREATE TABLE categorias (
-    id_categoria INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(255)
+create table categories (
+    id int primary key auto_increment,
+    name varchar(100) not null,
+    description varchar(255)
 );
 
 
-CREATE TABLE productos (
-    id_producto INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(150) NOT NULL,
-    descripcion VARCHAR(255),
-    codigo_barras VARCHAR(100) NOT NULL UNIQUE,
-    precio DECIMAL(10,2) NOT NULL,
-    stock INT NOT NULL DEFAULT 0,
-    estado BOOLEAN DEFAULT TRUE,
-    id_categoria INT NOT NULL,
-    FOREIGN KEY (id_categoria)REFERENCES categorias(id_categoria)
+create table products (
+    id int primary key auto_increment,
+    name varchar(150) not null,
+    description varchar(255),
+    barcode varchar(100) not null unique,
+    price decimal(10,2) not null,
+    stock int not null default 0,
+    status boolean default true,
+    id_category int not null,
+    foreign key (id_category) references categories(id)
 );
 
-CREATE TABLE proveedores (
-    id_proveedor INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(150) NOT NULL,
-    nit VARCHAR(50) NOT NULL UNIQUE,
-    telefono VARCHAR(30),
-    direccion VARCHAR(255),
-    email VARCHAR(150)
-);
-
-
-CREATE TABLE producto_proveedor (
-    id_producto INT NOT NULL,
-    id_proveedor INT NOT NULL,
-    PRIMARY KEY (id_producto, id_proveedor),
-    FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
-    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor)
+create table suppliers (
+    id int primary key auto_increment,
+    name varchar(150) not null,
+    tax_id varchar(50) not null unique,
+    phone varchar(30),
+    address varchar(255),
+    email varchar(150)
 );
 
 
-
-CREATE TABLE empleados (
-    id_empleado INT PRIMARY KEY AUTO_INCREMENT,
-    cedula VARCHAR(20) NOT NULL UNIQUE,
-    nombre VARCHAR(150) NOT NULL,
-    cargo ENUM('ADMINISTRADOR', 'CAJERO', 'AUXILIAR') NOT NULL,
-    fecha_ingreso DATE NOT NULL,
-    salario DECIMAL(10,2) NOT NULL
+create table product_supplier (
+    id_product int not null,
+    id_supplier int not null,
+    primary key (id_product, id_supplier),
+    foreign key (id_product) references products(id),
+    foreign key (id_supplier) references suppliers(id)
 );
 
 
 
-CREATE TABLE ventas (
-    id_venta INT PRIMARY KEY AUTO_INCREMENT,
-    fecha_venta DATETIME DEFAULT CURRENT_TIMESTAMP,
-    subtotal DECIMAL(10,2) NOT NULL,
-    iva DECIMAL(10,2) NOT NULL,
-    total DECIMAL(10,2) NOT NULL,
-    id_empleado INT NOT NULL,
-    FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado)
+create table employees (
+    id int primary key auto_increment,
+    national_id varchar(20) not null unique,
+    name varchar(150) not null,
+    role enum('administrador', 'cajero', 'auxiliar') not null,
+    hire_date date not null,
+    salary decimal(10,2) not null
 );
 
 
-CREATE TABLE detalle_venta (
-    id_detalle INT PRIMARY KEY AUTO_INCREMENT,
-    id_venta INT NOT NULL,
-    id_producto INT NOT NULL,
-    cantidad INT NOT NULL,
-    precio_unitario DECIMAL(10,2) NOT NULL,
-    subtotal DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (id_venta) REFERENCES ventas(id_venta),
-    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+
+create table sales (
+    id int primary key auto_increment,
+    sale_date datetime default current_timestamp,
+    subtotal decimal(10,2) not null,
+    vat decimal(10,2) not null,
+    total decimal(10,2) not null,
+    id_employee int not null,
+    foreign key (id_employee) references employees(id)
 );
+
+
+create table sale_details (
+    id int primary key auto_increment,
+    id_sale int not null,
+    id_product int not null,
+    quantity int not null,
+    unit_price decimal(10,2) not null,
+    subtotal decimal(10,2) not null,
+    foreign key (id_sale) references sales(id),
+    foreign key (id_product) references products(id)
+);
+
+INSERT INTO categories (name, description, status) VALUES ('Lácteos y Huevos', 'Productos derivados de la leche y huevos', true);
+INSERT INTO categories (name, description, status) VALUES ('Carnes', 'Carnes rojas, blancas y embutidos', true);
+INSERT INTO categories (name, description, status) VALUES ('Aseo Personal', 'Productos para el cuidado personal y limpieza', true);
+
+INSERT INTO suppliers (name, nit, address, phone, status) VALUES ('Distribuidora Central', '900123456-1', 'Calle 10 # 14-25', '3101234567', true);
+INSERT INTO suppliers (name, nit, address, phone, status) VALUES ('Suministros del Valle', '800987654-2', 'Carrera 15 # 20-10', '3209876543', true);
+
+INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Leche Entera 1L', 3500.00, 50, 1, 1, true);
+INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Queso Campesino 250g', 5000.00, 30, 1, 1, true);
+INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Carne de Res 500g', 12000.00, 20, 2, 2, true);
+INSERT INTO products (name, price, stock, category_id, supplier_id, status) VALUES ('Jabón de Baño 3 Unidades', 6000.00, 40, 3, 1, true);
+
+INSERT INTO employees (name, document, role, status) VALUES ('Carlos Ramirez', '1094123456', 'CAJERO', true);
+INSERT INTO employees (name, document, role, status) VALUES ('Laura Gomez', '1094654321', 'ADMINISTRADOR', true);
