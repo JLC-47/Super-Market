@@ -11,14 +11,14 @@ import com.supermarket.market.service.EmployeeService;
 
 
 @RestController
-@RequestMapping("/empleados")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
     // @PostMapping indica que este método solo responde cuando envían datos nuevos (crear)
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> registerEmployee(@Valid @RequestBody EmployeeRegisterDTO data) {
         
         // Si el código llega a esta línea, significa que @Valid revisó el DTO y todo está perfecto.

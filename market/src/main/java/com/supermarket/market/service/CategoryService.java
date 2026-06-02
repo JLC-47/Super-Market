@@ -34,7 +34,7 @@ public class CategoryService {
 
     public List<CategoryResponseDTO> getAllCategories() {
 
-        List<Categories> categories = categoryRepository.findByStatusTrue();
+        List<Categories> categories = categoryRepository.findAll();
         
         return categories.stream().map(cat -> {
             CategoryResponseDTO dto = new CategoryResponseDTO();
@@ -94,7 +94,6 @@ public class CategoryService {
         Categories category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Categoría no encontrada."));
 
-        category.setStatus(false);
         categoryRepository.save(category);
         
         return "Categoría eliminada correctamente.";

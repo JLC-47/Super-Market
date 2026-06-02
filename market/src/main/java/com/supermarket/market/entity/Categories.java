@@ -30,8 +30,6 @@ public class Categories {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "status", nullable = false)
-    private Boolean status = true;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @JsonIgnore
