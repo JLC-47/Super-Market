@@ -21,7 +21,7 @@ public class Employees {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Corregido: nationalId
+    
     @Column(name = "national_id", nullable = false, unique = true, length = 20 )
     private String nationalId;
 
@@ -32,14 +32,14 @@ public class Employees {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    // Corregido: hireDate y nombre de la columna a hire_date
+    
     @Column(name = "hire_date", nullable = false )
     private LocalDate hireDate;
 
     @Column(name = "salary", nullable = false )
     private Double salary;
 
-    // Corregido: Mayúsculas y ortografía de ADMINISTRADOR
+    
     public enum Role{
         ADMINISTRADOR, CAJERO, AUXILIAR
     }
