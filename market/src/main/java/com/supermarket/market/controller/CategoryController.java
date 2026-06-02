@@ -13,7 +13,7 @@ import com.supermarket.market.service.CategoryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/categories")
 public class CategoryController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-category/{id}")
     public ResponseEntity<String> updateCategory(
             @PathVariable Long id, 
             @Valid @RequestBody CategoryRequestDTO data) {
@@ -40,7 +40,7 @@ public class CategoryController {
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-category/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
         String result = categoryService.deleteCategory(id);
         return ResponseEntity.ok(result);

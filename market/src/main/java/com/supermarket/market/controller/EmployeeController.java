@@ -11,7 +11,7 @@ import com.supermarket.market.service.EmployeeService;
 
 
 @RestController
-@RequestMapping("/api/empleados")
+@RequestMapping("/empleados")
 public class EmployeeController {
 
     @Autowired

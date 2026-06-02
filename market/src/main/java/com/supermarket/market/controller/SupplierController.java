@@ -13,7 +13,7 @@ import com.supermarket.market.service.SupplierService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/suppliers")
+@RequestMapping("/suppliers")
 public class SupplierController {
 
     @Autowired
@@ -31,13 +31,13 @@ public class SupplierController {
         return ResponseEntity.ok(suppliers);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-supplier/{id}")
     public ResponseEntity<SupplierResponseDTO> getSupplierById(@PathVariable Long id) {
         SupplierResponseDTO supplier = supplierService.getSupplierById(id);
         return ResponseEntity.ok(supplier);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-supplier/{id}")
     public ResponseEntity<String> updateSupplier(
             @PathVariable Long id, 
             @Valid @RequestBody SupplierRequestDTO data) {
@@ -45,7 +45,7 @@ public class SupplierController {
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-supplier/{id}")
     public ResponseEntity<String> deleteSupplier(@PathVariable Long id) {
         String result = supplierService.deleteSupplier(id);
         return ResponseEntity.ok(result);
