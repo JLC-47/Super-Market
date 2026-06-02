@@ -19,13 +19,13 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createSupplier(@Valid @RequestBody SupplierRequestDTO data) {
         String result = supplierService.createSupplier(data);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping
+    @GetMapping("/get-suppliers")
     public ResponseEntity<List<SupplierResponseDTO>> getAllSuppliers() {
         List<SupplierResponseDTO> suppliers = supplierService.getAllSuppliers();
         return ResponseEntity.ok(suppliers);
